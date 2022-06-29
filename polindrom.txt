@@ -1,0 +1,34 @@
+class Solution {
+    public int longestPalindromeSubseq(String s) {
+        int n = s.length();
+        
+        //2d array to store longest pallindrome length from i to j where i and j are substring starting from i to j
+        int[][] arr = new int[n][n];
+        
+        
+        //Storing length 1 in (0,0), .... (n,n) pairs
+        for(int i=0; i<n; i++){
+            arr[i][i] = 1;
+        }
+        
+        //For string of length 2 to n-1, do the following
+        int size = 1;
+        while(size<n){
+            for(int i=0; i<n-size; i++){
+                int j = i+size;
+                //Calculate max length for substring (i, j)
+                if(s.charAt(i) == s.charAt(j)){
+                    arr[i][j] = arr[i+1][j-1] + 2;
+                } else {
+                    arr[i][j] = Math.max(arr[i+1][j], arr[i][j-1]);
+                }
+            }
+            size++;
+        }
+        return arr[0][n-1];
+    }
+}
+
+
+
+System.out.println(Arrays.toString(arr));
